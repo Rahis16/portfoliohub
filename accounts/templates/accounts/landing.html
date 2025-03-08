@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Landing Page - Portfolio Hub{% endblock title %}
+
+
+
+{% block content %}
+<section class="hero-section">
+    <div class="container2">
+        <div class="hero-content">
+            <!-- Left side - Buttons and Social Media -->
+            <div class="left-side">
+                <h2>Collaboration with <span>MalangCode Innovators</span></h2>
+                <p>Empowering the future of technology with innovation!</p>
+                <div class="buttons">
+                    <a href="#" class="btn btn-primary">See the Docs</a>
+                    <a href="#" class="btn btn-secondary" style="margin-top: 0;">Visit Company</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon github"><i class='bx bxl-github'></i></a>
+                    <a href="#" class="social-icon linkedin"><i class='bx bxl-linkedin'></i></a>
+                    <a href="#" class="social-icon twitter"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+
+            <!-- Right side - Image with hover effects -->
+            <div class="right-side">
+                <img src="{% static 'images\saas.png' %}" alt="Image" class="hero-img">
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Short Documentation Section -->
+    <section class="documentation-section">
+        <div class="container2">
+            <h2>Why Choose Portfolio Hub?</h2>
+            <div class="docs-container">
+                <div class="doc-item">
+                    <i class='bx bx-folder' style="font-size: 50px; color: #3498db;"></i>
+                    <h3>Projects</h3>
+                    <p>Easily upload and organize your projects to share with potential employers or collaborators.</p>
+                </div>
+                <div class="doc-item">
+                    <i class='bx bx-bulb' style="font-size: 50px; color: #e74c3c;"></i>
+                    <h3>Skills</h3>
+                    <p>Showcase your skills with detailed descriptions and visual representations.</p>
+                </div>
+                <div class="doc-item">
+                    <i class='bx bx-file' style="font-size: 50px; color: #f39c12;"></i>
+                    <h3>Resume</h3>
+                    <p>Build a stunning resume directly on the platform with easy-to-use templates.</p>
+                </div>
+                <!-- Additional section with new icons -->
+                <div class="doc-item">
+                    <i class='bx bx-briefcase' style="font-size: 50px; color: #2ecc71;"></i>
+                    <h3>Portfolio</h3>
+                    <p>Create a visually appealing portfolio to showcase your best work and attract attention.</p>
+                </div>
+                <div class="doc-item">
+                    <i class='bx bx-network-chart' style="font-size: 50px; color: #9b59b6;"></i>
+                    <h3>Networking</h3>
+                    <p>Connect with other professionals and expand your network within the platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+{% endblock content %}
+
+

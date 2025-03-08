@@ -26,6 +26,7 @@ def test_view(request):
 
 
 urlpatterns = [
+    path('', views.landing_page, name="landing"),
     path('login/', views.user_login, name='login'),
     path('signup/', views.user_register, name='signup'),
     path('logout/', views.user_logout, name='logout'),

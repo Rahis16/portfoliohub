@@ -1,0 +1,20 @@
+/* Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7rem 5%;
+}
+
+/* Card Styling */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(106, 27, 154, 0.2);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+

@@ -108,6 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+LOGIN_URL = 'login'  # You can customize this if you have a custom login page URL
+LOGIN_REDIRECT_URL = 'dashboard'  # Redirect to dashboard after login
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 

@@ -4,30 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    {% block title %}<title>Document</title>{% endblock title %}
+    <title>{% block title %}Portfolio Hub{% endblock title %}</title>
     {% block css %}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add-project.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% endblock css %}
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="logo">
             <h1>Portfolio Hub</h1>
         </div>
+        {% if not user.is_authenticated %}
         <div class="auth-buttons">
             <a href="{% url 'login' %}" class="btn btn-login">Login</a>
             <a href="{% url 'signup' %}" class="btn btn-signup">Sign Up</a>
         </div>
+        {% else %}
+        <div class="navs">
+            <a href="#"><i class='bx bx-home-smile' ></i></a>
+            <a href="#"><i class='bx bx-user'></i></a>
+        </div>
+
+        {% endif %}
+        <button id="sidebarToggle" class="sidebar-btn">
+            <i class='bx bx-menu'></i>
+        </button>
     </header>
+
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button id="closeSidebar" class="close-btn">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="{% url "dashboard" %}"><i class='bx bx-tachometer'></i> Dashboard</a>
+            <a href="#"><i class='bx bx-folder'></i> Projects</a>
+            <a href="#"><i class='bx bx-code-alt'></i> Skills</a>
+            <a href="#"><i class='bx bx-file'></i> Resume</a>
+            <a href="#"><i class='bx bx-user'></i> Profile</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#"><i class='bx bx-cog'></i> Settings</a>
+            <a href="{% url "logout" %}"><i class='bx bx-log-out'></i> Logout</a>
+        </div>
+    </aside>
 
     <!-- Main Content -->
     {% block content %}
     {% endblock content %}
 
+    {% if user.is_authenticated %}
+    <button class="float-btn">
+        <i class='bx bx-question-mark'></i>
+    </button>
+    {% endif %}
+
     {% block js %}
+    <script src="{% static 'js/sidebar.js' %}"></script>
     {% endblock js %}
 </body>
 </html>

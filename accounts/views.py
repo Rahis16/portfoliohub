@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 # Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -8,8 +7,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Project, Service, Resume, Skill
 from .forms import ProjectForm, ServiceForm, ResumeForm, SkillForm
-
-
 
 # rest framework imports 
 from rest_framework import generics, permissions
@@ -60,13 +57,17 @@ def user_login(request):
     return render(request, 'accounts/login.html')
 
 
-
+@login_required
 def user_logout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
     return redirect('login')
 
 
+
+
+def landing_page(request):
+    return render(request, "accounts/landing.html")
 
 
 @login_required
@@ -89,6 +90,7 @@ def add_project(request):
     return render(request, "accounts/panels/projects/add_project.html", {"form": form})
 
 
+@login_required
 def edit_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)  # Fetch project by UUID
     if request.method == 'POST':
@@ -160,18 +162,20 @@ def service_list(request):
     return render(request, 'accounts/panels/services/service_list.html', {'services': services})
 
 
-
+@login_required
 # List all resumes for the current user
 def resume_list(request):
     resumes = Resume.objects.filter(user=request.user)
     return render(request, 'accounts/panels/resume/resume_list.html', {'resumes': resumes})
 
 # View details of a specific resume
+@login_required
 def resume_detail(request, pk):
     resume = get_object_or_404(Resume, pk=pk, user=request.user)
     return render(request, 'accounts/panels/resume/resume_detail.html', {'resume': resume})
 
 # Create a new resume
+@login_required
 def resume_create(request):
     if request.method == 'POST':
         form = ResumeForm(request.POST, request.FILES)
@@ -186,6 +190,7 @@ def resume_create(request):
     return render(request, 'accounts/panels/resume/resume_form.html', {'form': form})
 
 # Update an existing resume
+@login_required
 def resume_update(request, pk):
     resume = get_object_or_404(Resume, pk=pk, user=request.user)
     if request.method == 'POST':
@@ -200,11 +205,13 @@ def resume_update(request, pk):
 
 
 # List all skills for the current user
+@login_required
 def skill_list(request):
     skills = Skill.objects.filter(user=request.user)
     return render(request, 'accounts/panels/skills/skill_list.html', {'skills': skills})
 
 # Create a new skill
+@login_required
 def skill_create(request):
     if request.method == 'POST':
         form = SkillForm(request.POST)
@@ -219,6 +226,7 @@ def skill_create(request):
     return render(request, 'accounts/panels/skills/skill_form.html', {'form': form})
 
 # Update an existing skill
+@login_required
 def skill_update(request, pk):
     skill = get_object_or_404(Skill, pk=pk, user=request.user)
     if request.method == 'POST':

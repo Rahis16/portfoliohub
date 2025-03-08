@@ -21,7 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),  # Include authentication URLs
+    path('', include('accounts.urls')),  # Include authentication URLs
 ]
 
 # Add static files in development mode

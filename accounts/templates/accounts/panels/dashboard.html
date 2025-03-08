@@ -1,18 +1,70 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Your Projects</h2>
-<a href="{% url 'add_project' %}">+ Add New Project</a>
+<div class="dashboard-container">
+    <h2 class="dashboard-title">Dashboard</h2>
+    
+    <div class="dashboard-grid">
+        <!-- Projects Section -->
+        <div class="card">
+            <i class='bx bx-folder' ></i>
+            <h3>Projects</h3>
+            <p>Manage your projects</p>
+            <a href="{% url 'add_project' %}" class="btn">+ Add New</a>
+        </div>
 
-<ul>
-    {% for project in projects %}
+        <!-- Resume Section -->
+        <div class="card">
+            <i class='bx bx-file'></i>
+            <h3>Resume</h3>
+            <p>Manage your resume</p>
+            <a href="{% url "resume_create" %}" class="btn">Upload Resume</a>
+            <ul>
+                {% for resume in resumes %}
+                <li>
+                    <a href="{{ resume.file.url }}" target="_blank">{{ resume.title }}</a>
+                    <a href="{% url 'delete_resume' resume.id %}" class="delete-btn">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="card">
+            <i class='bx bx-code-alt'></i>
+            <h3>Skills</h3>
+            <p>Showcase your skills</p>
+            <a href="{% url "skill_create" %}" class="btn">+ Add Skill</a>
+            <ul>
+                {% for skill in skills %}
+                <li>
+                    <i class="{{ skill.icon }}"></i> {{ skill.title }} 
+                    <a href="{% url 'edit_skill' skill.id %}" class="edit-btn">Edit</a>
+                    <a href="{% url 'delete_skill' skill.id %}" class="delete-btn">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="card">
+            <i class='bx bx-user'></i>
+            <h3>Profile</h3>
+            <p>Update your profile</p>
+            <a href="" class="btn">Edit Profile</a>
+        </div>
+    </div>
+
+    <ul style="padding-top: 100px;">
+        {% for project in projects %}
         <li>
-            <h3>{{ project.title }}</h3>
-            <p>{{ project.description }}</p>
-            <a href="{{ project.github_link }}" target="_blank">GitHub</a> | 
-            <a href="{{ project.live_demo }}" target="_blank">Live Demo</a> |
-            <a href="{% url 'delete_project' project.id %}">Delete</a>
+            <strong>{{ project.title }}</strong>
+            <strong>{{ project.description }}</strong>
+            <a href="{{project.github_link}}" class="edit-btn">{{project.github_link}}</a>
+            <a href="{% url 'edit_project' project.id %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete_project' project.id %}" class="delete-btn">Delete</a>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
