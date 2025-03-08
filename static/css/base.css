@@ -1,0 +1,108 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Apply the Poppins font to the body */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header Styling */
+header {
+    background-color: white; /* White background for the header */
+    color: #6a1b9a; /* Purple text */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    box-shadow: 0 4px 8px rgba(106, 27, 154, 0.2); /* Purple-ish shadow */
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Logo Styling */
+header .logo h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Authentication Buttons Styling */
+header .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Button Style */
+header .auth-buttons .btn {
+    background-color: white; /* White button background */
+    color: #6a1b9a; /* Purple text color */
+    text-decoration: none;
+    padding: 10px 20px; /* Padding as per your request */
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(106, 27, 154, 0.15); /* Light purple box shadow */
+    border: 2px solid #6a1b9a; /* Purple border */
+}
+
+/* Button Hover Effect */
+header .auth-buttons .btn:hover {
+    background-color: #6a1b9a; /* Purple background on hover */
+    color: white; /* White text when hovered */
+    box-shadow: 0 4px 8px rgba(106, 27, 154, 0.3); /* Darker purple shadow on hover */
+}
+
+/* Button Active Effect */
+header .auth-buttons .btn:active {
+    transform: scale(0.98); /* Slightly shrink the button when clicked */
+}
+
+/* Style for the content section */
+main {
+    padding: 20px;
+    flex-grow: 1;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h2, h3 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+/* Additional general styling */
+h2 {
+    margin-bottom: 25px;
+}
+
+ul li a {
+    color: #6a1b9a;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}

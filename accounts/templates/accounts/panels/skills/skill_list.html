@@ -1,0 +1,15 @@
+<h1>Your Skills</h1>
+<a href="{% url 'skill_create' %}">Add New Skill</a>
+<ul>
+    {% for skill in skills %}
+        <li>
+            <h2>{{ skill.title }}</h2>
+            <p>{{ skill.description }}</p>
+            <p>Experience: {{ skill.experience }} years</p>
+            {% if skill.icon %}
+                <img src="{{ skill.icon }}" alt="{{ skill.title }} icon" />
+            {% endif %}
+            <a href="{% url 'skill_update' skill.id %}">Edit</a>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Your Services</h1>
+  <a href="{% url 'service_create' %}" class="btn btn-primary">Create New Service</a>
+  <ul>
+    {% for service in services %}
+      <li>
+        <a href="{% url 'service_detail' service.slug %}">{{ service.title }}</a> | 
+        <a href="{% url 'service_update' service.slug %}">Edit</a> | 
+        <a href="{% url 'service_delete' service.slug %}">Delete</a>
+      </li>
+    {% empty %}
+      <li>No services created yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

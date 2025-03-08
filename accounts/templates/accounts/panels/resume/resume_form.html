@@ -1,0 +1,6 @@
+<h1>Create/Update Resume</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Resume</button>
+</form>

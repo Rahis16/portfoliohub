@@ -1,0 +1,9 @@
+<h1>{{ resume.title }}</h1>
+<img src="{{ resume.profile_picture.url }}" alt="Profile Picture" />
+<p><strong>Summary:</strong> {{ resume.summary }}</p>
+<p><strong>Skills:</strong> {{ resume.skills }}</p>
+<p><strong>Experience:</strong> {{ resume.experience }}</p>
+<p><strong>Education:</strong> {{ resume.education }}</p>
+<p><strong>Certifications:</strong> {{ resume.certifications }}</p>
+<p><strong>Projects:</strong> {{ resume.projects }}</p>
+<a href="{{ resume.resume_file.url }}" target="_blank">Download Resume</a>
