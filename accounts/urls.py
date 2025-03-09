@@ -47,6 +47,11 @@ urlpatterns = [
     path('skill/create/', views.skill_create, name='skill_create'),
     path('skill/<uuid:pk>/update/', views.skill_update, name='skill_update'),
     
+    
+    path('projects/', views.view_projects, name='view_projects'),
+    
+    
+    
     # rest frame works --- 
     path('api/projects/', ProjectListAPI.as_view(), name='api_projects'),
     path('api/projects/<uuid:pk>/', ProjectDetailAPI.as_view(), name='api_project_detail'),
@@ -54,6 +59,6 @@ urlpatterns = [
     
     path('test/', test_view),  # Test basic URL
     # documentation 
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-ui'),
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger_ui'),
     
 ]

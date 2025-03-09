@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Projects - Portfolio Hub{% endblock title %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+    <style>
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(128, 0, 128, 0.3);
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="projects-container">
+    <h1 class="heading">Projects</h1>
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            <h2>{{ project.title }}</h2>
+            <p>{{ project.description|truncatewords:20 }}</p>
+            <div class="img-cont">
+                {% if project.image %}
+              <div class="image">
+                  <img src="{{ project.image.url }}" alt="Project Image">
+              </div>
+            {% else %}
+              <div class="image">
+                  <img src="{% static 'images/noimage.png' %}" style="scale: 75%; object-fit: contain;" alt="Default Project Image">
+              </div>
+            {% endif %}
+            </div>
+            
+            <div class="btn-group">
+                {% if project.github_link %}
+                <a href="{{ project.github_link }}" target="_blank" class="github-btn">GitHub</a>
+                {% endif %}
+                {% if project.live_demo %}
+                <a href="{{ project.live_demo }}" target="_blank" class="live-btn">Live Demo</a>
+                {% endif %}
+            </div>
+            <p class="created-date">Created on {{ project.created_at|date:"M d, Y" }}</p>
+        </div>
+        {% empty %}
+        <p class="no-projects">No projects found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

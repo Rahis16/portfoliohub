@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
+
 {% block content %}
-  <h1>{{ form.instance.pk|default:"Create" }} Service</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save</button>
-  </form>
-  <br>
-  <a href="{% url 'dashboard' %}">Cancel</a>
+<div class="container">
+    <div class="card">
+        <h2 class="card-title">Service no: {{num}}</h2>
+        <form method="POST" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Service</button>
+        </form>
+        <a href="{% url 'dashboard' %}" class="back"><i class='bx bx-left-arrow-alt'></i> Cancel</a>
+    </div>
+</div>
 {% endblock %}

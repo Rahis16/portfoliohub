@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <title>{% block title %}Portfolio Hub{% endblock title %}</title>
-    {% block css %}
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="{% static 'css/add-project.css' %}">
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% endblock css %}
+
+    {% block extra_css %}
+    {% endblock extra_css %}
 </head>
 <body>
     <!-- Header -->
@@ -28,7 +30,7 @@
         </div>
         {% else %}
         <div class="navs">
-            <a href="#"><i class='bx bx-home-smile' ></i></a>
+            <a href="{% url "landing" %}"><i class='bx bx-home-smile' ></i></a>
             <a href="#"><i class='bx bx-user'></i></a>
         </div>
 
@@ -49,9 +51,10 @@
         </div>
         <nav class="sidebar-nav">
             <a href="{% url "dashboard" %}"><i class='bx bx-tachometer'></i> Dashboard</a>
-            <a href="#"><i class='bx bx-folder'></i> Projects</a>
-            <a href="#"><i class='bx bx-code-alt'></i> Skills</a>
-            <a href="#"><i class='bx bx-file'></i> Resume</a>
+            <a href="{% url "view_projects" %}"><i class='bx bx-folder'></i> Projects</a>
+            <a href="{% url "skill_list" %}"><i class='bx bx-code-alt'></i> Skills</a>
+            <a href="{% url "service_list" %}"><i class='bx bx-code-alt'></i> Services</a>
+            <a href="{% url "resume_list" %}"><i class='bx bx-file'></i> Resume</a>
             <a href="#"><i class='bx bx-user'></i> Profile</a>
         </nav>
         <div class="sidebar-footer">

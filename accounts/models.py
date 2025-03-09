@@ -51,6 +51,7 @@ class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
+    image = models.ImageField(upload_to="projects_images/", blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True)
     github_link = models.URLField(blank=True, null=True)
     live_demo = models.URLField(blank=True, null=True)
@@ -70,6 +71,8 @@ class Service(models.Model):
     # UUID field for unique identification
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     
+    order = models.IntegerField(default=0)
+    
     # Title of the service
     title = models.CharField(max_length=255)
     
@@ -81,6 +84,8 @@ class Service(models.Model):
     
     # Price of the service
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    icon = models.CharField(max_length=255, blank=True, null=True)
     
     # Created date for the service
     created_at = models.DateTimeField(auto_now_add=True)
@@ -147,11 +152,6 @@ class Resume(models.Model):
     def get_absolute_url(self):
         return reverse('resume_detail', kwargs={'pk': self.pk})
 
-    def save(self, *args, **kwargs):
-        """Override save to generate a slug based on the title"""
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)    
         
         
         

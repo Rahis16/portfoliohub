@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card">
         <h2 class="card-title">Add New Project</h2>
-        <form method="POST" class="form">
+        <form method="POST" enctype="multipart/form-data" class="form">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}

@@ -13,6 +13,14 @@
             <a href="{% url 'add_project' %}" class="btn">+ Add New</a>
         </div>
 
+        <!-- Services Section -->
+        <div class="card">
+            <i class='bx bx-folder' ></i>
+            <h3>Services</h3>
+            <p>Manage your services</p>
+            <a href="{% url 'service_create' %}" class="btn">+ Add New</a>
+        </div>
+
         <!-- Resume Section -->
         <div class="card">
             <i class='bx bx-file'></i>
@@ -54,17 +62,5 @@
             <a href="" class="btn">Edit Profile</a>
         </div>
     </div>
-
-    <ul style="padding-top: 100px;">
-        {% for project in projects %}
-        <li>
-            <strong>{{ project.title }}</strong>
-            <strong>{{ project.description }}</strong>
-            <a href="{{project.github_link}}" class="edit-btn">{{project.github_link}}</a>
-            <a href="{% url 'edit_project' project.id %}" class="edit-btn">Edit</a>
-            <a href="{% url 'delete_project' project.id %}" class="delete-btn">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
 </div>
 {% endblock %}

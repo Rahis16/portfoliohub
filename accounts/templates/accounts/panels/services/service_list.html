@@ -1,16 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Services - Portfolio Hub{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
-  <h1>Your Services</h1>
-  <a href="{% url 'service_create' %}" class="btn btn-primary">Create New Service</a>
-  <ul>
-    {% for service in services %}
-      <li>
-        <a href="{% url 'service_detail' service.slug %}">{{ service.title }}</a> | 
-        <a href="{% url 'service_update' service.slug %}">Edit</a> | 
-        <a href="{% url 'service_delete' service.slug %}">Delete</a>
-      </li>
-    {% empty %}
-      <li>No services created yet.</li>
-    {% endfor %}
-  </ul>
-{% endblock %}
+<div class="services-container">
+    <h1 class="page-title">Your Services</h1>
+
+    <div class="service-list">
+        {% for service in services %}
+        <div class="service-card">
+            <h2 class="service-title">{{ service.title }}</h2>
+            <p class="service-description">{{ service.description|truncatewords:20 }}</p>
+            <p class="service-price">$ {{ service.price }}</p>
+            <p class="service-user">Offered by: {{ service.user.username }}</p>
+
+            <!-- View Details Button -->
+            <div class="service-link">
+                <a href="{{ service.get_absolute_url }}" class="view-details">View Details →</a>
+            </div>
+
+            <!-- Actions for Each Service -->
+            <div class="service-actions">
+                <a href="{% url 'service_update' service.slug %}" class="action-link">Edit</a>
+                <a href="{% url 'service_delete' service.slug %}" class="action-link">Delete</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-services-message">No services available at the moment.</p>
+        {% endfor %}
+    </div>
+
+    <div class="services-actions">
+        <h2>Create New Service</h2>
+        <a href="{% url 'service_create' %}" class="create-new-service-btn">Create New Service</a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,9 +1,73 @@
-<h1>Your Resumes</h1>
-<a href="{% url 'resume_create' %}">Create New Resume</a>
-<ul>
-    {% for resume in resumes %}
-        <li>
-            <a href="{% url 'resume_detail' resume.id %}">{{ resume.title }}</a>
-        </li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Resumes - Portfolio Hub{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/resumes.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="resumes-container">
+    <h1 class="page-title">Your Resumes</h1>
+
+    <div class="resume-list">
+        {% for resume in resumes %}
+        <div class="resume-card">
+            <h2 class="resume-title">{{ resume.title }}</h2>
+            <p class="resume-summary">{{ resume.summary|truncatewords:20 }}</p>
+            <!-- Skills -->
+            <div class="resume-skills">
+                <strong>Skills:</strong> {{ resume.skills|truncatewords:5 }}
+            </div>
+
+            <!-- Experience -->
+            <div class="resume-experience">
+                <strong>Experience:</strong> {{ resume.experience|truncatewords:10 }}
+            </div>
+
+            <!-- Education -->
+            <div class="resume-education">
+                <strong>Education:</strong> {{ resume.education|truncatewords:5 }}
+            </div>
+
+            <!-- Certifications -->
+            <div class="resume-certifications">
+                <strong>Certifications:</strong> {{ resume.certifications|truncatewords:5 }}
+            </div>
+
+            <!-- Projects -->
+            <div class="resume-projects">
+                <strong>Notable Projects:</strong> {{ resume.projects|truncatewords:5 }}
+            </div>
+
+            <!-- Resume File -->
+            {% if resume.resume_file %}
+            <div class="resume-file">
+                <a href="{{ resume.resume_file.url }}" class="download-link" target="_blank">Download Resume</a>
+            </div>
+            {% endif %}
+
+
+            <!-- View Details Button -->
+            <div class="resume-link">
+                <a href="{{ resume.get_absolute_url }}" class="view-details">View Details →</a>
+            </div>
+
+            <!-- Actions for Each Resume -->
+            <div class="resume-actions">
+                <a href="#" class="action-link">Edit</a>
+                <a href="#" class="action-link">Delete</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-resumes-message">No resumes available at the moment.</p>
+        {% endfor %}
+    </div>
+
+    <div class="resumes-actions">
+        <h2>Create New Resume</h2>
+        <a href="{% url 'resume_create' %}" class="create-new-resume-btn">Create New Resume</a>
+    </div>
+</div>
+{% endblock content %}

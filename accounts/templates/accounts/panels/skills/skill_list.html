@@ -1,15 +1,43 @@
-<h1>Your Skills</h1>
-<a href="{% url 'skill_create' %}">Add New Skill</a>
-<ul>
-    {% for skill in skills %}
-        <li>
-            <h2>{{ skill.title }}</h2>
-            <p>{{ skill.description }}</p>
-            <p>Experience: {{ skill.experience }} years</p>
-            {% if skill.icon %}
-                <img src="{{ skill.icon }}" alt="{{ skill.title }} icon" />
-            {% endif %}
-            <a href="{% url 'skill_update' skill.id %}">Edit</a>
-        </li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Skills - Portfolio Hub{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/skills.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="skills-container">
+    <h1 class="page-title">Your Skills</h1>
+
+    <div class="skill-list">
+        {% for skill in skills %}
+        <div class="skill-card">
+            <h2 class="skill-title">{{ skill.title }}</h2>
+            <p class="skill-description">{{ skill.description|truncatewords:20 }}</p>
+            <p class="skill-experience">{{ skill.experience }} years of experience</p>
+            <p class="skill-user">Added by: {{ skill.user.username }} (you)</p>
+
+            <!-- View Details Button -->
+            <div class="skill-link">
+                <a href="{{ skill.get_absolute_url }}" class="view-details">View Details →</a>
+            </div>
+
+            <!-- Actions for Each Skill -->
+            <div class="skill-actions">
+                <a href="#" class="action-link">Delete</a>
+                <a href="#" class="action-link">Edit</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-skills-message">No skills available at the moment.</p>
+        {% endfor %}
+    </div>
+
+    <div class="skills-actions">
+        <h2>Create New Skill</h2>
+        <a href="{% url 'skill_create' %}" class="create-new-skill-btn">Create New Skill</a>
+    </div>
+</div>
+{% endblock content %}

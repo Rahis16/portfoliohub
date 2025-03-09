@@ -3,6 +3,18 @@
     margin-bottom: 15px;
 }
 
+label{
+    width: 100%;
+    justify-content: left;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-weight: 600;
+
+}
+
 input, textarea, select {
     width: 100%;
     padding: 10px;
@@ -52,3 +64,4 @@ input:focus, textarea:focus, select:focus {
     background: #6a1b9a;
     color: white;
 }
+

@@ -72,14 +72,13 @@ def landing_page(request):
 
 @login_required
 def dashboard(request):
-    projects = Project.objects.filter(user=request.user)
-    return render(request, "accounts/panels/dashboard.html", {"projects": projects})
+    return render(request, "accounts/panels/dashboard.html")
 
 
 @login_required
 def add_project(request):
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.user = request.user
@@ -88,6 +87,11 @@ def add_project(request):
     else:
         form = ProjectForm()
     return render(request, "accounts/panels/projects/add_project.html", {"form": form})
+
+
+def view_projects(request):
+    projects = Project.objects.filter(user=request.user)
+    return render(request, 'accounts/panels/projects/projects.html', {'projects': projects})
 
 
 @login_required
@@ -128,7 +132,11 @@ def service_create(request):
             return redirect('dashboard')  # Redirect to dashboard after creating service
     else:
         form = ServiceForm()
-    return render(request, 'accounts/panels/services/service_form.html', {'form': form})
+        last_service = Service.objects.filter(user=request.user).order_by('-order').first()
+        
+        num = last_service.order + 1
+        
+    return render(request, 'accounts/panels/services/service_form.html', {'form': form, 'num':num})
 
 # Update Service
 @login_required
