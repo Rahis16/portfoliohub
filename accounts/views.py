@@ -5,13 +5,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Project, Service, Resume, Skill
+from .models import Project, Service, Resume, Skill, UserProfile
 from .forms import ProjectForm, ServiceForm, ResumeForm, SkillForm
 
 # rest framework imports 
 from rest_framework import generics, permissions
 from .models import Project
-from .serializers import ProjectSerializer
+from .serializers import ProjectSerializer, UserProfileSerializer, ResumeSerializer
+from rest_framework.exceptions import NotAuthenticated
+from rest_framework.permissions import AllowAny 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 
 
 def user_register(request):
@@ -73,6 +78,35 @@ def landing_page(request):
 @login_required
 def dashboard(request):
     return render(request, "accounts/panels/dashboard.html")
+
+
+@login_required
+def user_profile(request):
+    # Get the user profile related to the logged-in user
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        profile = None
+    
+    # Context to pass to the template
+    context = {
+        'profile': profile,
+    }
+    
+    return render(request, 'user_profile.html', context)
+
+# API view for the user profile
+@api_view(['GET'])
+def user_profile_api(request):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        return Response({'detail': 'Profile not found.'}, status=404)
+
+    # Serialize the profile data
+    serializer = UserProfileSerializer(profile)
+    
+    return Response(serializer.data)
 
 
 @login_required
@@ -176,6 +210,11 @@ def resume_list(request):
     resumes = Resume.objects.filter(user=request.user)
     return render(request, 'accounts/panels/resume/resume_list.html', {'resumes': resumes})
 
+
+
+
+
+
 # View details of a specific resume
 @login_required
 def resume_detail(request, pk):
@@ -196,6 +235,7 @@ def resume_create(request):
     else:
         form = ResumeForm()
     return render(request, 'accounts/panels/resume/resume_form.html', {'form': form})
+
 
 # Update an existing resume
 @login_required
@@ -247,15 +287,15 @@ def skill_update(request, pk):
     return render(request, 'accounts/panels/skills/skill_form.html', {'form': form})
 
 
-
-# DRF starts here: ---
 class ProjectListAPI(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Ensure users can only see their own projects
+        # Ensure users can only see their own project
         return Project.objects.filter(user=self.request.user)
+
+            
 
 class ProjectDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProjectSerializer
@@ -265,3 +305,13 @@ class ProjectDetailAPI(generics.RetrieveUpdateDestroyAPIView):
         # Ensure users can only see their own project
         return Project.objects.filter(user=self.request.user)
 
+
+
+            
+class ResumeListAPI(generics.ListAPIView):
+    serializer_class = ResumeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Ensure users can only see their own resume
+        return Resume.objects.filter(user=self.request.user)

@@ -18,6 +18,10 @@ class UserProfile(models.Model):
     # Nickname of the user
     nickname = models.CharField(max_length=100, blank=True, null=True)
     
+    post = models.CharField(max_length=255, default="your post")
+    
+    bio = models.TextField(default="bio")
+    
     # Profile picture of the user
     profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     
@@ -142,6 +146,10 @@ class Resume(models.Model):
 
     # Actual resume file (PDF, DOCX, etc.)
     resume_file = models.FileField(upload_to='resumes/')
+    
+    # Contact details
+    contact_email = models.EmailField(blank=True, null=True)
+    contact_phone = models.CharField(max_length=20, blank=True, null=True)
 
     # Date created
     created_at = models.DateTimeField(auto_now_add=True)

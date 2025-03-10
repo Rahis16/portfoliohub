@@ -1,6 +1,6 @@
 from django.urls import path
 from .import views
-from .views import ProjectListAPI, ProjectDetailAPI
+from .views import ProjectListAPI, ProjectDetailAPI, ResumeListAPI
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
 from drf_yasg.views import get_schema_view
@@ -19,7 +19,7 @@ schema_view = get_schema_view(
         license=openapi.License(name="MIT License"),
     ),
     public=True,
-    permission_classes=(permissions.IsAuthenticated,),  # Use AllowAny for testing
+    permission_classes=(permissions.AllowAny,),  # Use AllowAny for testing
 )
 def test_view(request):
     return HttpResponse("Test View works!")
@@ -55,6 +55,8 @@ urlpatterns = [
     # rest frame works --- 
     path('api/projects/', ProjectListAPI.as_view(), name='api_projects'),
     path('api/projects/<uuid:pk>/', ProjectDetailAPI.as_view(), name='api_project_detail'),
+    path('api/user-profile/', views.user_profile_api, name='user_profile_api'),
+     path('api/resume/', ResumeListAPI.as_view(), name='get_resume'),
     
     
     path('test/', test_view),  # Test basic URL
